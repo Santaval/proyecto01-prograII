@@ -1,0 +1,42 @@
+function searchTerrain(row, col, board, StructPointer) {
+
+    if (board[row][col] == '-') {
+        board[row, col] = 'C'
+        StructPointer.size += 1
+        StructPointer.row = row
+        StructPointer.col = col
+        if(row + 1 is valid cell) searchTerrain(row + 1, col, board, StructPointer)
+        if(row - 1 is valid cell) searchTerrain(row - 1, col, board, StructPointer)
+        if(col + 1 is valid cell) searchTerrain(col + 1, col, board, StructPointer)
+        if(col - 1 is valid cell) searchTerrain(col - 1, col, board, StructPointer)
+    }
+}
+
+
+function searchTerrainAreas (matrixPointer) {
+    
+    board = clone(matrix)
+
+    struct SafeArea {
+        col = 0,
+        row = 0,
+        size = 0
+    }
+
+    SafeAreaArray = []
+
+    for (rowCounter 0 to boardCol) {
+        for (colCounter 0 to boardCols) {
+
+            if (board[rowCounter][colCounter] == '-') {
+                currentArea = new SafeArea()
+                searchTerrain(rowCounter, colCounter, board, currentArea)
+                SafeAreaArray.push(currentArea)
+            } else {
+                board[row, col] = 'C'
+            }
+
+        }
+    }
+
+}
