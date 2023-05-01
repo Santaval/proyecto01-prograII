@@ -12,8 +12,20 @@ function searchTerrain(row, col, board, StructPointer) {
     }
 }
 
+function replaceTerrain(row, col, board) {
 
-function searchTerrainAreas (matrixPointer) {
+    if (board[row][col] == '-') {
+        board[row, col] = 'R'
+
+        if(row - 1 is valid cell) repalceTerrain(row - 1, col, board)
+        if(row + 1 is valid cell) replaceTerrain(row + 1, col, board)
+        if(col + 1 is valid cell) replaceTerrain(col + 1, col, board)
+        if(col - 1 is valid cell) replaceTerrain(col - 1, col, board)
+    }
+}
+
+
+function searchTerrainAreas (matrix) {
     
     board = clone(matrix)
 
@@ -41,4 +53,19 @@ function searchTerrainAreas (matrixPointer) {
 
     return SafeAreaArray
 
+}
+
+function replace (matrix){
+    SafeAreaArray = searchTerrainAreas(matrix)
+    biggestSize = 0;
+    for (SafeAreaArray 0 to length){
+        if (SafeAreaArray[x].size > biggestSize){
+            biggestSize = SafeAreaArray[x].size
+        }
+    }
+    for (SafeAreaArray 0 to length){
+        if (SafeAreaArray[x].size == biggestSize){
+            repalceTerrain(SafeAreaArray[x].row, SafeAreaArray[x].col, matrix)
+        }
+    }
 }
