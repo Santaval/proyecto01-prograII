@@ -81,7 +81,7 @@ To solve the problem, we have designed a subroutine that receives a memory addre
 
 Next, the matrix is cloned to apply the algorithm <a href="https://github.com/adrianblade/java-algorithm#:~:text=A%20Search%20in%20depth%20(in,way% 20ordered%2C%20but%20not%20uniform.">DFS</a>, going through each node (box) of the same, verifying if it is safe terrain or not. Finally, the size of safe terrain found and the coordinates of any of them are saved. their nodes.
 
-<img src="\design\Diagrama de flujo.png" alt='Diagrama de flujo completo'>
+<img src="\design\Diagrama de flujo.png" alt="Diagrama de flujo completo">
 
 <br>
 <br>
