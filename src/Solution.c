@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <Solution.h>
+#include <SearchTerrainAreas.h>
 
 enum EXIT_CODES
 {
