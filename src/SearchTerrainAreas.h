@@ -7,3 +7,4 @@ typedef struct SafeArea {
 };
 
 void searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols);
+void cloneTerrain(char* terrain, char* terrainClone, terrainSize_t terrainRows, terrainSize_t terrainCols);

@@ -69,8 +69,10 @@ int main(int argc, char *argv[])
             terrainBoard = (char *) malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
             const int readMatixReturn = readMatrix(terrainBoard, terrainRows, terrainCols);
             if (readMatixReturn == SUCCESS)
-            {
+            {   
+                searchTerrainAreas(terrainBoard, terrainRows, terrainCols);
                 printMatrix(terrainBoard, terrainRows, terrainCols); // printing matix (delete)
+                free(terrainBoard);
             }
             else if (readMatixReturn == INVALID_DATA)
             {
