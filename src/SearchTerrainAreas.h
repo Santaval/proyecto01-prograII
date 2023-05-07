@@ -6,6 +6,6 @@ typedef struct SafeArea {
     terrainSize_t size;
 } safeArea_t;
 
-void searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols);
+safeArea_t** searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols);
 void cloneTerrain(char* terrain, char* terrainClone, terrainSize_t terrainRows, terrainSize_t terrainCols);
 void searchTerrain(char* terrain, safeArea_t* newArea, terrainSize_t cellRow, terrainSize_t cellCol, terrainSize_t terrainRows, terrainSize_t terrainCols);

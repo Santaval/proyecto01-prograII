@@ -14,7 +14,7 @@ void printMatrixs(char *terrainBoard, const terrainSize_t rows, const terrainSiz
 }
 
 
-void searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
+safeArea_t**  searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
     char* terrainClone = (char*) malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
     safeArea_t** safeAreaArr = (safeArea_t**) malloc(sizeof(safeArea_t**) * terrainRows * terrainCols);
     for(terrainSize_t index = 0; index < terrainRows * terrainCols; index++) {
@@ -38,12 +38,13 @@ void searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t
         }
     }
 
-    for(terrainSize_t index = 0; index < terrainRows * terrainCols; index++) {
-        if(safeAreaArr[index] != NULL) {
-            printf("%llu\n", safeAreaArr[index] -> size);
-            //free(safeAreaArr[index]);
-        }
-    }
+    // for(terrainSize_t index = 0; index < terrainRows * terrainCols; index++) {
+    //     if(safeAreaArr[index] != NULL) {
+    //         printf("%llu\n", safeAreaArr[index] -> size);
+    //         //free(safeAreaArr[index]);
+    //     }
+    // }
+    return safeAreaArr;
 
     //free(safeAreaArr);
     //free(terrainClone);
