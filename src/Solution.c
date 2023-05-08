@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
             int readBinaryMatixReturn = readBinaryMatrix(terrainBoard, terrainRows, terrainCols, binDoc);
              if (readBinaryMatixReturn == SUCCESS)
             {
-                printMatrix(terrainBoard, terrainRows, terrainCols); // printing matix (delete)
+                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols);     
             }
             else if (readBinaryMatixReturn == INVALID_DATA)
             {
@@ -70,9 +70,7 @@ int main(int argc, char *argv[])
             const int readMatixReturn = readMatrix(terrainBoard, terrainRows, terrainCols);
             if (readMatixReturn == SUCCESS)
             {  
-                safeArea_t** safeAreaArr = searchTerrainAreas(terrainBoard, terrainRows, terrainCols);
-                terrainBoard = replace(safeAreaArr,terrainBoard,terrainRows,terrainCols);
-                printMatrix(terrainBoard, terrainRows, terrainCols); // printing matix (delete)
+                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols);       
             }
             else if (readMatixReturn == INVALID_DATA)
             {
@@ -122,13 +120,3 @@ int readBinaryMatrix (char* terrainBoard, const terrainSize_t rows, const terrai
     return SUCCESS;
 }
 
-void printMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols)
-{
-    for (terrainSize_t count = 0; count < rows * cols; count++)
-    {
-        if (count % cols == 0 && count != 0)
-            printf("\n");
-        printf("%c", terrainBoard[count]);
-    }
-    printf("\n");
-}

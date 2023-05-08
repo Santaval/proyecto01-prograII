@@ -2,19 +2,18 @@
 #include <stdlib.h>
 #include "SearchTerrainAreas.h"
 
-void printMatrixs(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols)
-{
-    for (terrainSize_t count = 0; count < rows * cols; count++)
-    {
-        if (count % cols == 0 && count != 0)
-            printf("\n");
-        printf("%c", terrainBoard[count]);
-    }
-    printf("\n");
+
+
+void SearchingForShelterInTheFlood (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
+    safeArea_t** safeAreaArr = (safeArea_t**) malloc(sizeof(safeArea_t**) * (terrainRows * terrainCols));
+    searchTerrainAreas(terrain, terrainRows, terrainCols);
+    printMatrix(terrain, terrainRows, terrainCols);
+
 }
 
 
-safeArea_t**  searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
+
+void searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
     char* terrainClone = (char*) malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
     safeArea_t** safeAreaArr = (safeArea_t**) malloc(sizeof(safeArea_t**) * terrainRows * terrainCols);
     for(terrainSize_t index = 0; index < terrainRows * terrainCols; index++) {
@@ -34,7 +33,7 @@ safeArea_t**  searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terr
 
                 searchTerrain(terrainClone, newArea, rowCounter, colCounter, terrainRows, terrainCols);
                 safeAreaArr[pushedAreas] = newArea;
-                 //printf("%llu\n", newArea -> size);
+                 printf("a: %llu\n", newArea -> size);
                  //printMatrixs(terrainClone, terrainRows, terrainCols);
                 pushedAreas++;
 
@@ -42,13 +41,7 @@ safeArea_t**  searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terr
         }
     }
 
-    // for(terrainSize_t index = 0; index < terrainRows * terrainCols; index++) {
-    //     if(safeAreaArr[index] != NULL) {
-    //         printf("%llu\n", safeAreaArr[index] -> size);
-    //         //free(safeAreaArr[index]);
-    //     }
-    // }
-    return safeAreaArr;
+    replace(safeAreaArr, terrain, terrainRows, terrainCols);
 
     //free(safeAreaArr);
     //free(terrainClone);
@@ -86,23 +79,41 @@ void replaceCell(char* terrain, terrainSize_t row, terrainSize_t col, terrainSiz
     }
 }
 
-char* replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols){
+void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols){
     terrainSize_t arrLength = terrainRows * terrainCols;
     terrainSize_t biggest = 0;
     for (terrainSize_t i = 0; i < arrLength; i++){
-        if(safeAreaArr[i] != NULL && safeAreaArr[i]->size > biggest){
-            biggest = safeAreaArr[i]->size;
+        if(safeAreaArr[i] != NULL){
+             printf("c: %lld\n", safeAreaArr[i] -> size);
+            if (safeAreaArr[i]->size > biggest) {
+            
+                biggest = safeAreaArr[i]->size;
+            }
+          
         }
     }
+
+    printf("%lld\n", biggest);
+
     for (int i = 0; i < arrLength; i++){
         if(safeAreaArr[i] != NULL && safeAreaArr[i]->size == biggest){
+  
             replaceCell(terrain,safeAreaArr[i]->row,safeAreaArr[i]->col,terrainRows,terrainCols);
         }
     }
-    //printf("indice: %c", index);
-    
-    return terrain;
+
+
 }
 
 
+void printMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols)
+{
+    for (terrainSize_t count = 0; count < rows * cols; count++)
+    {
+        if (count % cols == 0 && count != 0)
+            printf("\n");
+        printf("%c", terrainBoard[count]);
+    }
+    printf("\n");
+}
 
