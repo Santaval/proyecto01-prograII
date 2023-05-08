@@ -114,22 +114,16 @@ int main(int argc, char *argv[])
 
 int readMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols)
 {
-    for (terrainSize_t row = 0; row < rows; row++) {
-        for (terrainSize_t col = 0; col < cols; col ++) {
-        if (scanf("%c", &terrainBoard[rows * col + col]) != 1)
+    for (terrainSize_t count = 0; count < rows * cols; count++)
+    {
+        if (scanf(" %c", &terrainBoard[count]) != 1)
             return INSUFICIENT_DATA;
-        if (terrainBoard[row * col + col] != 'X' && terrainBoard[row * col + col] != '-')
+        if (terrainBoard[count] != 'X' && terrainBoard[count] != '-')
             return INVALID_DATA;
-        }
-
-        char deleteSpace;
-        scanf("%c", &deleteSpace);
-
-        if (deleteSpace != 32) return INVALID_DATA;
-
     }
     terrainBoard[rows * cols] = '\0';
     return SUCCESS;
+
 }
 
 int readBinaryMatrix (char* terrainBoard, const terrainSize_t rows, const terrainSize_t cols, FILE* binDoc) {
