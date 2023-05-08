@@ -10,7 +10,7 @@
 void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols ) {
     safeArea_t** safeAreaArr = malloc(sizeof(safeArea_t**) * (terrainRows * terrainCols));
     searchTerrainAreas(terrain, terrainRows, terrainCols);
-    printMatrix(terrain, terrainRows, terrainCols);
+    printMatrix(terrain, safeAreaArr, terrainRows, terrainCols);
 }
 
 void searchTerrainAreas(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
@@ -37,6 +37,7 @@ void searchTerrainAreas(char* terrain, terrainSize_t terrainRows, terrainSize_t 
         }
     }
     replace(safeAreaArr, terrain, terrainRows, terrainCols);
+    free(terrainClone); //frees the cloned matrix
 }
 
 void cloneTerrain(char* terrain, char* terrainClone, terrainSize_t terrainRows, terrainSize_t terrainCols) {
@@ -93,12 +94,17 @@ void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows,
     printf("%d\n",areas); //prints how many areas have been replaced with refugees
 }
 
-void printMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols) {
+void printMatrix(char *terrainBoard, safeArea_t** safeAreaArr, const terrainSize_t rows, const terrainSize_t cols) {
     for (terrainSize_t count = 0; count < rows * cols; count++) {
         if (count % cols == 0 && count != 0)
             printf("\n");
         printf("%c", terrainBoard[count]);
     }
     printf("\n");
+    free(terrainBoard); //frees the matrix of chars
+    for(int i = 0; i < rows * cols; i++){
+        free(safeAreaArr[i]); //frees every slot of the array of structs
+    }
+    free(safeAreaArr); //frees the array itself
 }
 

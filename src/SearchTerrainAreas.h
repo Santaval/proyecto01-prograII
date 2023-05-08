@@ -78,7 +78,8 @@ void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows,
  * @brief prints the final result and delete the continuous matrix and the array
  * 
  * @param terrainBoard final matrix of the terrain
+ * @param safeAreaArr array with all the safe areas
  * @param rows total of rows of the matrix
  * @param cols total of columns of the matrix
  */
-void printMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols);
+void printMatrix(char *terrainBoard, safeArea_t** safeAreaArr, const terrainSize_t rows, const terrainSize_t cols);

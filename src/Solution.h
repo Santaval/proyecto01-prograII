@@ -29,4 +29,4 @@ int readBinaryMatrix (char* terrainBoard, const terrainSize_t rows, const terrai
  * @param terrainCol total columns of the terrain
  * 
 */
-void printMatrix(char* terrainBoard, const terrainSize_t rows, const terrainSize_t cols);
+//void printMatrix(char* terrainBoard, const terrainSize_t rows, const terrainSize_t cols);
