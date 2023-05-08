@@ -4,6 +4,8 @@
 #include "Solution.h"
 #include "SearchTerrainAreas.h"
 
+/// exit codes
+
 enum EXIT_CODES
 {
     ERR,
@@ -13,19 +15,29 @@ enum EXIT_CODES
     FILE_NOT_FOUND
 };
 
+
+/// @brief main function
+/// @param argc arguments amount
+/// @param argv arguments array
+/// @return bool (0 or 1) to represent the program the exit code
 int main(int argc, char *argv[])
 {
 
     /// Creating int variables to keep row, cols values and array for cantinious matrix in dynamic memory
-    terrainSize_t terrainRows = 0; // matrix rows
-    terrainSize_t terrainCols = 0; // matix cols
-    char *terrainBoard;  // pointer to char array in dynamic memory
+    terrainSize_t terrainRows = 0;
+    terrainSize_t terrainCols = 0; 
 
+    // pointer to char array in dynamic memory
+    char *terrainBoard;
+
+    // validating if program receives a binary file oer not
     if (argc > 1 && !strcmp(argv[1], "-b"))
-    {
+    {   
+        // creating pointer and opening binary file
         FILE *binDoc;
         binDoc = fopen(argv[2], "rb");
 
+        // validating file was founded
         if (binDoc == NULL)
         {
             puts("Binary file not found");
@@ -97,12 +109,19 @@ int main(int argc, char *argv[])
 
 int readMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols)
 {
-    for (terrainSize_t count = 0; count < rows * cols; count++)
-    {
-        if (scanf(" %c", &terrainBoard[count]) != 1)
+    for (terrainSize_t row = 0; row < rows; row++) {
+        for (terrainSize_t col = 0; col < cols; col ++) {
+        if (scanf("%c", &terrainBoard[rows * col + col]) != 1)
             return INSUFICIENT_DATA;
-        if (terrainBoard[count] != 'X' && terrainBoard[count] != '-')
+        if (terrainBoard[row * col + col] != 'X' && terrainBoard[row * col + col] != '-')
             return INVALID_DATA;
+        }
+
+        char deleteSpace;
+        scanf("%c", &deleteSpace);
+
+        if (deleteSpace != 32) return INVALID_DATA;
+
     }
     terrainBoard[rows * cols] = '\0';
     return SUCCESS;
