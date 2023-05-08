@@ -95,8 +95,7 @@ char* replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows
         }
     }
     for (int i = 0; i < arrLength; i++){
-        if(safeAreaArr[i]->size == biggest){
-            printf("indice: %d\n",i);
+        if(safeAreaArr[i] != NULL && safeAreaArr[i]->size == biggest){
             replaceCell(terrain,safeAreaArr[i]->row,safeAreaArr[i]->col,terrainRows,terrainCols);
         }
     }
