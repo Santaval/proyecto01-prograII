@@ -81,6 +81,7 @@ void replaceCell(char* terrain, terrainSize_t row, terrainSize_t col, terrainSiz
 void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
     terrainSize_t arrLength = terrainRows * terrainCols;
     terrainSize_t biggest = 0;
+    int areas = 0;
     for (terrainSize_t i = 0; i < arrLength; i++) {
         if (safeAreaArr[i] != NULL) {
             if (safeAreaArr[i]->size > biggest) {
@@ -91,9 +92,11 @@ void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows,
 
     for (int i = 0; i < arrLength; i++) {
         if (safeAreaArr[i] != NULL && safeAreaArr[i]->size == biggest) {
+            areas++;
             replaceCell(terrain, safeAreaArr[i]->row, safeAreaArr[i]->col, terrainRows, terrainCols);
         }
     }
+    printf("%d\n",areas);
 }
 
 
