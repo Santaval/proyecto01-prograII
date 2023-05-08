@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <SearchTerrainAreas.h>
+#include "SearchTerrainAreas.h"
 
 void printMatrixs(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols)
 {
@@ -25,15 +25,19 @@ safeArea_t**  searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terr
     for (terrainSize_t rowCounter = 0; rowCounter < terrainRows; rowCounter++) {
         for (terrainSize_t colCounter = 0; colCounter < terrainCols; colCounter++) {
             if(terrainClone[terrainCols * rowCounter + colCounter] == '-') {
+
                 safeArea_t* newArea = (safeArea_t*) malloc(sizeof(safeArea_t*));
+
                 newArea -> row = rowCounter;
                 newArea -> col = colCounter;
                 newArea -> size = 0;
+
                 searchTerrain(terrainClone, newArea, rowCounter, colCounter, terrainRows, terrainCols);
                 safeAreaArr[pushedAreas] = newArea;
-                 printf("%llu\n", newArea -> size);
+                 //printf("%llu\n", newArea -> size);
                  //printMatrixs(terrainClone, terrainRows, terrainCols);
                 pushedAreas++;
+
             }
         }
     }
@@ -71,6 +75,7 @@ void searchTerrain(char* terrain, safeArea_t* newArea, terrainSize_t cellRow, te
 }
 
 void replaceCell(char* terrain, terrainSize_t row, terrainSize_t col, terrainSize_t terrainRows, terrainSize_t terrainCols){
+
      if(terrain[terrainCols * row + col] == '-') {
         terrain[terrainCols * row + col] = 'R';
 
@@ -82,15 +87,15 @@ void replaceCell(char* terrain, terrainSize_t row, terrainSize_t col, terrainSiz
 }
 
 char* replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols){
-    int arrLength = (sizeof(safeAreaArr)/sizeof(safeAreaArr[0]));
+
+    int arrLength = sizeof(safeAreaArr)/sizeof(safeAreaArr[0]);
     int biggest = 0;
     for (int i = 0; i < arrLength; i++){
         if(safeAreaArr[i]->size > biggest){
             biggest = safeAreaArr[i]->size;
         }
     }
-    printf("tamanno del supuesto mas grande: %d\n",safeAreaArr[2]->size);
-    printf("length del arreglo: %d, area mayor: %d\n",arrLength,biggest);
+
     for (int i = 0; i < arrLength; i++){
         if(safeAreaArr[i]->size == biggest){
             printf("indice: %d\n",i);

@@ -63,13 +63,13 @@ int main(int argc, char *argv[])
     else
     {
         /// reading matrix dimmensions and validate them
-        if (scanf("%llu %llu", &terrainRows, &terrainCols) == 2)
+        if (scanf("%lld %lld", &terrainRows, &terrainCols) == 2)
         {
             /// assign dynamic memory spae to keep continious matix
             terrainBoard = (char *) malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
             const int readMatixReturn = readMatrix(terrainBoard, terrainRows, terrainCols);
             if (readMatixReturn == SUCCESS)
-            {   
+            {  
                 safeArea_t** safeAreaArr = searchTerrainAreas(terrainBoard, terrainRows, terrainCols);
                 terrainBoard = replace(safeAreaArr,terrainBoard,terrainRows,terrainCols);
                 printMatrix(terrainBoard, terrainRows, terrainCols); // printing matix (delete)
@@ -126,7 +126,7 @@ void printMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize
 {
     for (terrainSize_t count = 0; count < rows * cols; count++)
     {
-        if (count % cols == 0 & count != 0)
+        if (count % cols == 0 && count != 0)
             printf("\n");
         printf("%c", terrainBoard[count]);
     }
