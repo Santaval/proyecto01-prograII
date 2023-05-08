@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <Solution.h>
-#include <SearchTerrainAreas.h>
+#include "Solution.h"
+#include "SearchTerrainAreas.h"
 
 enum EXIT_CODES
 {
@@ -70,7 +70,8 @@ int main(int argc, char *argv[])
             const int readMatixReturn = readMatrix(terrainBoard, terrainRows, terrainCols);
             if (readMatixReturn == SUCCESS)
             {   
-                searchTerrainAreas(terrainBoard, terrainRows, terrainCols);
+                safeArea_t** safeAreaArr = searchTerrainAreas(terrainBoard, terrainRows, terrainCols);
+                terrainBoard = replace(safeAreaArr,terrainBoard,terrainRows,terrainCols);
                 printMatrix(terrainBoard, terrainRows, terrainCols); // printing matix (delete)
             }
             else if (readMatixReturn == INVALID_DATA)

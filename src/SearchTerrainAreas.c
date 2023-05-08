@@ -6,7 +6,7 @@ void printMatrixs(char *terrainBoard, const terrainSize_t rows, const terrainSiz
 {
     for (terrainSize_t count = 0; count < rows * cols; count++)
     {
-        if (count % cols == 0 & count != 0)
+        if (count % cols == 0 && count != 0)
             printf("\n");
         printf("%c", terrainBoard[count]);
     }
@@ -58,7 +58,7 @@ void cloneTerrain(char* terrain, char* terrainClone, terrainSize_t terrainRows, 
     terrainClone[terrainRows * terrainCols] = '\0';
 }
 
-void searchTerrain(char* terrain, safeArea_t* newArea, terrainSize_t cellRow, terrainSize_t cellCol, terrainSize_t terrainRows, terrainSize_t terrainCols ) {
+void searchTerrain(char* terrain, safeArea_t* newArea, terrainSize_t cellRow, terrainSize_t cellCol, terrainSize_t terrainRows, terrainSize_t terrainCols) {
     if(terrain[terrainCols * cellRow + cellCol] == '-') {
         terrain[terrainCols * cellRow + cellCol] = 'C';
         newArea -> size+= 1;
@@ -68,6 +68,38 @@ void searchTerrain(char* terrain, safeArea_t* newArea, terrainSize_t cellRow, te
         if(cellCol + 1 < terrainCols) searchTerrain(terrain, newArea, cellRow, cellCol + 1, terrainRows, terrainCols);
         if(cellCol - 1 >= 0) searchTerrain(terrain, newArea, cellRow, cellCol - 1, terrainRows, terrainCols);
     }
+}
+
+void replaceCell(char* terrain, terrainSize_t row, terrainSize_t col, terrainSize_t terrainRows, terrainSize_t terrainCols){
+     if(terrain[terrainCols * row + col] == '-') {
+        terrain[terrainCols * row + col] = 'R';
+
+        if(row + 1 < terrainRows) replaceCell(terrain, row + 1, col, terrainRows, terrainCols);
+        if(row - 1 >= 0) replaceCell(terrain, row - 1, col, terrainRows, terrainCols);
+        if(col + 1 < terrainCols) replaceCell(terrain, row, col + 1, terrainRows, terrainCols);
+        if(col - 1 >= 0) replaceCell(terrain, row, col - 1, terrainRows, terrainCols);
+    }
+}
+
+char* replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols){
+    int arrLength = (sizeof(safeAreaArr)/sizeof(safeAreaArr[0]));
+    int biggest = 0;
+    for (int i = 0; i < arrLength; i++){
+        if(safeAreaArr[i]->size > biggest){
+            biggest = safeAreaArr[i]->size;
+        }
+    }
+    printf("tamanno del supuesto mas grande: %d\n",safeAreaArr[2]->size);
+    printf("length del arreglo: %d, area mayor: %d\n",arrLength,biggest);
+    for (int i = 0; i < arrLength; i++){
+        if(safeAreaArr[i]->size == biggest){
+            printf("indice: %d\n",i);
+            replaceCell(terrain,safeAreaArr[i]->row,safeAreaArr[i]->col,terrainRows,terrainCols);
+        }
+    }
+    //printf("indice: %c", index);
+    
+    return terrain;
 }
 
 
