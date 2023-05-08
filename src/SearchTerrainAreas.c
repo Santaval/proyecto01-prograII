@@ -15,7 +15,7 @@ void SearchingForShelterInTheFlood (char* terrain, terrainSize_t terrainRows, te
 
 void searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
     char* terrainClone = (char*) malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
-    safeArea_t** safeAreaArr = (safeArea_t**) malloc(sizeof(safeArea_t**) * terrainRows * terrainCols);
+    safeArea_t** safeAreaArr = (safeArea_t**) malloc(sizeof(safeArea_t*) * (terrainRows * terrainCols));
     for(terrainSize_t index = 0; index < terrainRows * terrainCols; index++) {
         safeAreaArr[index] = NULL;    
     }
@@ -25,7 +25,7 @@ void searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t
         for (terrainSize_t colCounter = 0; colCounter < terrainCols; colCounter++) {
             if(terrainClone[terrainCols * rowCounter + colCounter] == '-') {
 
-                safeArea_t* newArea = (safeArea_t*) malloc(sizeof(safeArea_t*));
+                safeArea_t* newArea = (safeArea_t*) malloc(sizeof(safeArea_t));
 
                 newArea -> row = rowCounter;
                 newArea -> col = colCounter;
@@ -43,8 +43,8 @@ void searchTerrainAreas (char* terrain, terrainSize_t terrainRows, terrainSize_t
 
     replace(safeAreaArr, terrain, terrainRows, terrainCols);
 
-    //free(safeAreaArr);
-    //free(terrainClone);
+    // free(safeAreaArr);
+    // free(terrainClone);
 
 }
 
