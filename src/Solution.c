@@ -1,3 +1,8 @@
+/* Copyright (C) 2023 Marcelo Picado, Aaron Santana - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the XYZ license, which unfortunately won't be
+ * written for another century.
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -54,12 +59,12 @@ int main(int argc, char *argv[])
             }
             else if (readBinaryMatixReturn == INVALID_DATA)
             {
-                puts("Invalid data");
+                puts("invalid data");
                 return EXIT_FAILURE;
             }
             else
             {
-                puts("Insuficient data");
+                puts("invalid data");
                 return EXIT_FAILURE;
             }
 
@@ -68,7 +73,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            puts("Invalidad Data");
+            puts("invalidad Data");
             return EXIT_FAILURE;
         }
     }
@@ -86,12 +91,12 @@ int main(int argc, char *argv[])
             }
             else if (readMatixReturn == INVALID_DATA)
             {
-                puts("Invalid data");
+                puts("invalid data");
                 return EXIT_FAILURE;
             }
             else
             {
-                puts("Insuficient data");
+                puts("invalid data");
                 return EXIT_FAILURE;
             }
 
@@ -99,7 +104,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            puts("Invalid data");
+            puts("invalid data");
             return EXIT_FAILURE;
         }
     }
