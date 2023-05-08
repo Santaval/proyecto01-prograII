@@ -94,8 +94,6 @@ char* replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows
             biggest = safeAreaArr[i]->size;
         }
     }
-    printf("tamanno del supuesto mas grande: %d\n",safeAreaArr[2]->size);
-    printf("length del arreglo: %d, area mayor: %d\n",arrLength,biggest);
     for (int i = 0; i < arrLength; i++){
         if(safeAreaArr[i]->size == biggest){
             printf("indice: %d\n",i);
