@@ -87,15 +87,15 @@ void replaceCell(char* terrain, terrainSize_t row, terrainSize_t col, terrainSiz
 }
 
 char* replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols){
-
-    int arrLength = sizeof(safeAreaArr)/sizeof(safeAreaArr[0]);
-    int biggest = 0;
-    for (int i = 0; i < arrLength; i++){
-        if(safeAreaArr[i]->size > biggest){
+    terrainSize_t arrLength = terrainRows * terrainCols;
+    terrainSize_t biggest = 0;
+    for (terrainSize_t i = 0; i < arrLength; i++){
+        if(safeAreaArr[i] != NULL && safeAreaArr[i]->size > biggest){
             biggest = safeAreaArr[i]->size;
         }
     }
-
+    printf("tamanno del supuesto mas grande: %d\n",safeAreaArr[2]->size);
+    printf("length del arreglo: %d, area mayor: %d\n",arrLength,biggest);
     for (int i = 0; i < arrLength; i++){
         if(safeAreaArr[i]->size == biggest){
             printf("indice: %d\n",i);
