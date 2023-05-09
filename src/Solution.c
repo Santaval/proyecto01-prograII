@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
             return EXIT_FAILURE;
         }
 
-        if (fread(&terrainRows, sizeof(terrainBoard), 1, binDoc) == 1 && fread(&terrainCols, sizeof(terrainSize_t), 1, binDoc) == 1)
+        if (fread(&terrainRows, sizeof(int), 1, binDoc) == 1 && fread(&terrainCols, sizeof(int), 1, binDoc) == 1)
         {   
             terrainBoard = (char *) malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
             int readBinaryMatixReturn = readBinaryMatrix(terrainBoard, terrainRows, terrainCols, binDoc);

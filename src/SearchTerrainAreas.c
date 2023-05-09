@@ -105,7 +105,7 @@ if (argc == 1) {
             printf("\n");
         }
     } else if (argc == 2 || argc == 3) {
-        FILE* txtDoc = fopen("tests/output.txt", "w");
+        FILE* txtDoc = fopen("gen-output/output.txt", "w");
         if (txtDoc == NULL) {
             printf("Error al abrir el archivo.\n");
             return;
