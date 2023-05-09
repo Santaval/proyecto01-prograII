@@ -37,7 +37,7 @@ void searchTerrainAreas(char* terrain, terrainSize_t terrainRows, terrainSize_t 
         }
     }
     replace(safeAreaArr, terrain, terrainRows, terrainCols);
-    free(terrainClone); //frees the cloned matrix
+    //free(terrainClone); //frees the cloned matrix
 }
 
 void cloneTerrain(char* terrain, char* terrainClone, terrainSize_t terrainRows, terrainSize_t terrainCols) {
@@ -101,10 +101,10 @@ void printMatrix(char *terrainBoard, safeArea_t** safeAreaArr, const terrainSize
         printf("%c", terrainBoard[count]);
     }
     printf("\n");
-    free(terrainBoard); //frees the matrix of chars
-    for(int i = 0; i < rows * cols; i++){
-        free(safeAreaArr[i]); //frees every slot of the array of structs
-    }
-    free(safeAreaArr); //frees the array itself
+    //free(terrainBoard); //frees the matrix of chars
+    // for(int i = 0; i < rows * cols; i++){
+    //     free(safeAreaArr[i]); //frees every slot of the array of structs
+    // }
+    //free(safeAreaArr); //frees the array itself
 }
 
