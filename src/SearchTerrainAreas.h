@@ -17,8 +17,9 @@ typedef struct SafeArea {
  * @param terrainRows rows of the matrix.
  * @param terrainCols columns of the matrix.
  * @param argc arguments amount to print matix in stdout or file
+ * @param filename file where input was readed
  */
-void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols, int argc);
+void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols, int argc, char* filename);
 
 /**
  * @brief creates a copy of the original matrix, the copy is going to be 
@@ -76,6 +77,7 @@ terrainSize_t replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t ter
  * @param cols total of columns of the matrix
  * @param argc arguments amount to print matix in stdout or file
  * @param totalAreas total areas founded
+ * @param filename file where input was readed
  */
 void printMatrix(char *terrainBoard, const terrainSize_t rows,
-    const terrainSize_t cols, int argc, terrainSize_t totalAreas);
+    const terrainSize_t cols, int argc, terrainSize_t totalAreas, char* filename);

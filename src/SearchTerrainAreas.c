@@ -6,8 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "SearchTerrainAreas.h"
+#include <string.h>
 
-void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols, int argc) {
+void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols, int argc, char* filename) {
        char* terrainClone = malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
     safeArea_t** safeAreaArr = malloc(sizeof(safeArea_t*) * (terrainRows * terrainCols));
     for (terrainSize_t index = 0; index < terrainRows * terrainCols; index++) {
@@ -31,7 +32,7 @@ void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, ter
         }
     }
     terrainSize_t totalAreas = replace(safeAreaArr, terrain, terrainRows, terrainCols);
-    printMatrix(terrain, terrainRows, terrainCols, argc, totalAreas);
+    printMatrix(terrain, terrainRows, terrainCols, argc, totalAreas, filename);
     for(int i = 0; i < terrainRows * terrainCols; i++){
         free(safeAreaArr[i]); //frees every slot of the array of structs
     }
@@ -94,7 +95,7 @@ terrainSize_t replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t ter
 }
 
 void printMatrix(char *terrainBoard, const terrainSize_t rows,
-        const terrainSize_t cols, int argc, terrainSize_t totalAreas) {
+        const terrainSize_t cols, int argc, terrainSize_t totalAreas, char* filename) {
 if (argc == 1) {
         // Imprimir en la salida estándar (stdout)
         printf("%lld\n", totalAreas);
@@ -105,7 +106,9 @@ if (argc == 1) {
             printf("\n");
         }
     } else if (argc == 2 || argc == 3) {
-        FILE* txtDoc = fopen("gen-output/output.txt", "w");
+      
+        sprintf(filename, "%s-out.txt", filename);
+        FILE* txtDoc = fopen(filename, "w");
         if (txtDoc == NULL) {
             printf("Error al abrir el archivo.\n");
             return;
@@ -120,7 +123,7 @@ if (argc == 1) {
 
         fclose(txtDoc);
 
-        printf("Matriz guardada en el archivo \"%s\".\n", "gen-output/output.txt");
+        printf("Resultado guardado en el archivo \"%s\".\n", filename);
 
     }
 

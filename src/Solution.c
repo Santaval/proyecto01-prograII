@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
             int readBinaryMatixReturn = readBinaryMatrix(terrainBoard, terrainRows, terrainCols, binDoc);
              if (readBinaryMatixReturn == SUCCESS)
             {
-                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc);     
+                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc, argv[2]);     
             }
             else if (readBinaryMatixReturn == INVALID_DATA)
             {
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
             const int readMatixReturn = readMatrix(terrainBoard, terrainRows, terrainCols);
             if (readMatixReturn == SUCCESS)
             {  
-                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc);       
+                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc, "");       
             }
             else if (readMatixReturn == INVALID_DATA)
             {
@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
             int readBinaryMatixReturn = readTxtMatrix(terrainBoard, terrainRows, terrainCols, txtDoc);
              if (readBinaryMatixReturn == SUCCESS)
             {
-                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc);     
+                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc, argv[1]);     
             }
             else if (readBinaryMatixReturn == INVALID_DATA)
             {
