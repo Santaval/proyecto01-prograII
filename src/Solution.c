@@ -114,12 +114,23 @@ int main(int argc, char *argv[])
 
 int readMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize_t cols)
 {
-    for (terrainSize_t count = 0; count < rows * cols; count++)
+    char temp[cols];
+    for (terrainSize_t count = 0; count < rows; count++)
     {
-        if (scanf(" %c", &terrainBoard[count]) != 1)
-            return INSUFICIENT_DATA;
-        if (terrainBoard[count] != 'X' && terrainBoard[count] != '-')
+        if(scanf(" %s ",temp)<=0){
             return INVALID_DATA;
+        }else{
+            for(int i = 0; i < cols; i++){
+                if(temp[i] != 'X' && temp[i] != '-'){
+                    return INVALID_DATA;
+                }
+            }
+            for (int i = 0; i < cols; i++){
+                terrainBoard[cols*count+i]=temp[i];
+            }
+        }
+
+        
     }
     terrainBoard[rows * cols] = '\0';
     return SUCCESS;
