@@ -22,11 +22,11 @@ int readMatrix(char* terrainBoard, const terrainSize_t rows, const terrainSize_t
 int readBinaryMatrix (char* terrainBoard, const terrainSize_t rows, const terrainSize_t cols, FILE* binDoc);
 
 /**
- * Receives terrain dimensions and char pointer, in a loop ptint the current char in stdout .
+ * Receives terrain dimensions and char pointer, in a loop read a char from a txt file and insert it in the current index.
  * 
  * @param terrainBorad char array pointer for represent tearrin characters
  * @param terrainRow total rows of the terrain
  * @param terrainCol total columns of the terrain
  * 
 */
-//void printMatrix(char* terrainBoard, const terrainSize_t rows, const terrainSize_t cols);
+int readTxtMatrix(char* terrainBoard, const terrainSize_t rows, const terrainSize_t cols, FILE* txtDoc);

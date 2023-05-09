@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     char *terrainBoard;
 
     // validating if program receives a binary file oer not
-    if (argc > 1 && !strcmp(argv[1], "-b"))
+    if (argc == 3 && !strcmp(argv[1], "-b"))
     {   
         // creating pointer and opening binary file
         FILE *binDoc;
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
             int readBinaryMatixReturn = readBinaryMatrix(terrainBoard, terrainRows, terrainCols, binDoc);
              if (readBinaryMatixReturn == SUCCESS)
             {
-                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols);     
+                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc);     
             }
             else if (readBinaryMatixReturn == INVALID_DATA)
             {
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
             return EXIT_FAILURE;
         }
     }
-    else
+    else if (argc == 1)
     {
         /// reading matrix dimmensions and validate them
         if (scanf("%lld %lld", &terrainRows, &terrainCols) == 2)
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
             const int readMatixReturn = readMatrix(terrainBoard, terrainRows, terrainCols);
             if (readMatixReturn == SUCCESS)
             {  
-                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols);       
+                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc);       
             }
             else if (readMatixReturn == INVALID_DATA)
             {
@@ -108,6 +108,49 @@ int main(int argc, char *argv[])
             return EXIT_FAILURE;
         }
     }
+    else if (argc == 2)
+    {   
+        // creating pointer and opening binary file
+        FILE *txtDoc;
+        txtDoc = fopen(argv[1], "rb");
+
+        // validating file was founded
+        if (txtDoc == NULL)
+        {
+            puts("Txt file not found");
+            return EXIT_FAILURE;
+        }
+
+        if (fscanf(txtDoc, "%llu %llu", &terrainRows, &terrainCols) == 2)
+        {   
+            terrainBoard = (char *) malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
+            int readBinaryMatixReturn = readTxtMatrix(terrainBoard, terrainRows, terrainCols, txtDoc);
+             if (readBinaryMatixReturn == SUCCESS)
+            {
+                SearchingForShelterInTheFlood(terrainBoard, terrainRows, terrainCols, argc);     
+            }
+            else if (readBinaryMatixReturn == INVALID_DATA)
+            {
+                puts("invalid data");
+                return EXIT_FAILURE;
+            }
+            else
+            {
+                puts("invalid data");
+                return EXIT_FAILURE;
+            }
+
+            free(terrainBoard); // free continious matix memory
+
+        }
+        else
+        {
+            puts("invalidad Data");
+            return EXIT_FAILURE;
+        }
+    }
+
+    
 
     return EXIT_SUCCESS;
 }
@@ -135,6 +178,19 @@ int readMatrix(char *terrainBoard, const terrainSize_t rows, const terrainSize_t
     terrainBoard[rows * cols] = '\0';
     return SUCCESS;
 
+}
+
+
+int readTxtMatrix (char* terrainBoard, const terrainSize_t rows, const terrainSize_t cols, FILE* txtDoc) {
+     for (int count = 0; count < rows * cols; count++)
+    {
+        if (fscanf(txtDoc, " %c", &terrainBoard[count]) != 1)
+            return INSUFICIENT_DATA;
+        if (terrainBoard[count] != 'X' && terrainBoard[count] != '-')
+            return INVALID_DATA;
+    }
+    terrainBoard[rows * cols] = '\0';
+    return SUCCESS;
 }
 
 int readBinaryMatrix (char* terrainBoard, const terrainSize_t rows, const terrainSize_t cols, FILE* binDoc) {

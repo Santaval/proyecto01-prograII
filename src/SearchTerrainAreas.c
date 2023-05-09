@@ -7,14 +7,8 @@
 #include <stdlib.h>
 #include "SearchTerrainAreas.h"
 
-void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols ) {
-    safeArea_t** safeAreaArr = malloc(sizeof(safeArea_t**) * (terrainRows * terrainCols));
-    searchTerrainAreas(terrain, terrainRows, terrainCols);
-    printMatrix(terrain, safeAreaArr, terrainRows, terrainCols);
-}
-
-void searchTerrainAreas(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
-    char* terrainClone = malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
+void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols, int argc) {
+       char* terrainClone = malloc((sizeof(char) * (terrainCols * terrainRows)) + sizeof(char));
     safeArea_t** safeAreaArr = malloc(sizeof(safeArea_t*) * (terrainRows * terrainCols));
     for (terrainSize_t index = 0; index < terrainRows * terrainCols; index++) {
         safeAreaArr[index] = NULL; //initialize the matrix
@@ -36,7 +30,12 @@ void searchTerrainAreas(char* terrain, terrainSize_t terrainRows, terrainSize_t 
             }
         }
     }
-    replace(safeAreaArr, terrain, terrainRows, terrainCols);
+    terrainSize_t totalAreas = replace(safeAreaArr, terrain, terrainRows, terrainCols);
+    printMatrix(terrain, terrainRows, terrainCols, argc, totalAreas);
+    for(int i = 0; i < terrainRows * terrainCols; i++){
+        free(safeAreaArr[i]); //frees every slot of the array of structs
+    }
+    free(safeAreaArr); //frees the array itself
     free(terrainClone); //frees the cloned matrix
 }
 
@@ -72,7 +71,7 @@ void replaceCell(char* terrain, terrainSize_t row, terrainSize_t col, terrainSiz
     }
 }
 
-void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
+terrainSize_t replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols) {
     terrainSize_t arrLength = terrainRows * terrainCols; //quantitie of elements of the array
     terrainSize_t biggest = 0; //keeps the size of the biggest safe area
     int areas = 0; //areas that have been succesfully replaced
@@ -91,19 +90,40 @@ void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows,
             replaceCell(terrain, safeAreaArr[i]->row, safeAreaArr[i]->col, terrainRows, terrainCols);
         }
     }
-    printf("%d\n",areas); //prints how many areas have been replaced with refugees
+    return areas;
 }
 
-void printMatrix(char *terrainBoard, safeArea_t** safeAreaArr, const terrainSize_t rows, const terrainSize_t cols) {
-    for (terrainSize_t count = 0; count < rows * cols; count++) {
-        if (count % cols == 0 && count != 0)
+void printMatrix(char *terrainBoard, const terrainSize_t rows,
+        const terrainSize_t cols, int argc, terrainSize_t totalAreas) {
+if (argc == 1) {
+        // Imprimir en la salida estándar (stdout)
+        printf("%lld\n", totalAreas);
+        for (int rowCount = 0; rowCount < rows; rowCount++) {
+            for (int colCount = 0; colCount < cols; colCount++) {
+                printf("%c", terrainBoard[cols * rowCount + colCount]);
+            }
             printf("\n");
-        printf("%c", terrainBoard[count]);
+        }
+    } else if (argc == 2 || argc == 3) {
+        FILE* txtDoc = fopen("tests/output.txt", "w");
+        if (txtDoc == NULL) {
+            printf("Error al abrir el archivo.\n");
+            return;
+        }
+        fprintf(txtDoc,"%lld\n", totalAreas);
+        for (int rowCount = 0; rowCount < rows; rowCount++) {
+            for (int colCount = 0; colCount < cols; colCount++) {
+                fprintf(txtDoc, "%c", terrainBoard[cols * rowCount + colCount]);
+            }
+            fprintf(txtDoc, "\n");
+        }
+
+        fclose(txtDoc);
+
+        // if (argc == 3) {
+        //     printf("Matriz guardada en el archivo \"%s\".\n", nombreArchivo);
+        // }
     }
-    printf("\n");
-    for(int i = 0; i < rows * cols; i++){
-        free(safeAreaArr[i]); //frees every slot of the array of structs
-    }
-    free(safeAreaArr); //frees the array itself
+
 }
 

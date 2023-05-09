@@ -16,17 +16,9 @@ typedef struct SafeArea {
  * @param terrain continuous matrix of chars that saves the initial terrain.
  * @param terrainRows rows of the matrix.
  * @param terrainCols columns of the matrix.
+ * @param argc arguments amount to print matix in stdout or file
  */
-void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols);
-
-/**
- * @brief search for every safe area in the terrain matrix, saving one 
- * coordenate of every safe area and its size in an array of safe areas
- * @param terrain the terrain that it's going to be checked
- * @param terrainRows total of rows fo the terrain
- * @param terrainCols total of columns of the terrain
- */
-void searchTerrainAreas(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols);
+void SearchingForShelterInTheFlood(char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols, int argc);
 
 /**
  * @brief creates a copy of the original matrix, the copy is going to be 
@@ -71,8 +63,9 @@ void replaceCell(char* terrain, terrainSize_t row, terrainSize_t col, terrainSiz
  * @param terrain original matrix of the terrain
  * @param terrainRows total of rows of the matrix
  * @param terrainCols total of columns of the matrix
+ * @return total amount of replaced areas
  */
-void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols);
+terrainSize_t replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows, terrainSize_t terrainCols);
 
 /**
  * @brief prints the final result and delete the continuous matrix and the array
@@ -81,5 +74,8 @@ void replace(safeArea_t** safeAreaArr, char* terrain, terrainSize_t terrainRows,
  * @param safeAreaArr array with all the safe areas
  * @param rows total of rows of the matrix
  * @param cols total of columns of the matrix
+ * @param argc arguments amount to print matix in stdout or file
+ * @param totalAreas total areas founded
  */
-void printMatrix(char *terrainBoard, safeArea_t** safeAreaArr, const terrainSize_t rows, const terrainSize_t cols);
+void printMatrix(char *terrainBoard, const terrainSize_t rows,
+    const terrainSize_t cols, int argc, terrainSize_t totalAreas);
