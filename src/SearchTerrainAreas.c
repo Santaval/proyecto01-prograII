@@ -120,9 +120,8 @@ if (argc == 1) {
 
         fclose(txtDoc);
 
-        // if (argc == 3) {
-        //     printf("Matriz guardada en el archivo \"%s\".\n", nombreArchivo);
-        // }
+        printf("Matriz guardada en el archivo \"%s\".\n", "gen-output/output.txt");
+
     }
 
 }
